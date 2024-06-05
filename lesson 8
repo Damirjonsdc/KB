@@ -1,0 +1,19 @@
+import hashlib
+
+def calculate_hash(input_string):
+    # Преобразуем строку в байты
+    input_bytes = input_string.encode('utf-8')
+    
+    # Вычисляем хэш-значение с использованием SHA-256
+    sha256_hash = hashlib.sha256(input_bytes)
+    
+    # Возвращаем строку, представляющую хэш-значение в шестнадцатеричном виде
+    return sha256_hash.hexdigest()
+
+def main():
+    input_string = input("Введите строку для вычисления хэш-значения: ")
+    hash_value = calculate_hash(input_string)
+    print("Хэш-значение для введенной строки:", hash_value)
+
+if __name__ == "__main__":
+    main()
