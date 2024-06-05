@@ -1,0 +1,30 @@
+import nmap
+
+def scan_network(target):
+    # Инициализация сканера
+    nm = nmap.PortScanner()
+
+    # Выполнение сканирования
+    nm.scan(hosts=target, arguments='-sP')
+
+    # Обработка результатов
+    for host in nm.all_hosts():
+        print(f'Host : {host} ({nm[host].hostname()})')
+        print(f'State : {nm[host].state()}')
+
+        if 'tcp' in nm[host]:
+            for proto in nm[host].all_protocols():
+                print('----------')
+                print(f'Protocol : {proto}')
+
+                lport = nm[host][proto].keys()
+                for port in lport:
+                    print(f'port : {port}\tstate : {nm[host][proto][port]["state"]}')
+
+def main():
+    target = input("Enter the IP address or range to scan (e.g., 192.168.1.0/24): ")
+    scan_network(target)
+
+if __name__ == "__main__":
+    main()
+
